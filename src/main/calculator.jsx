@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "./Calculator.css";
-import Button from "../components/Button";
+import Button from "../components/button/Button";
 
 export default class Calculator extends Component {
     render(){                                       // O render() é uma fincionacidade do react para podermos disponibiliazar(apresentar) funcinalidades html
