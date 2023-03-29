@@ -1,0 +1,13 @@
+
+.display {
+    grid-column: 4 span;            /* é uma propriedade do css grid
+                                    onde o span faz referencia as columns
+                                    ou seja, 4 span => Ocupe as 4 colunas */
+    background-color: #0004;
+    display: flex;
+    justify-content: flex-end;      /* Funciona so end também */
+    padding: 20px;
+    align-items: center;
+    font-size: 2.1em;
+    overflow: hidden;
+}
