@@ -1,11 +1,13 @@
 import React, {Component} from "react";
 import "./Calculator.css";
 import Button from "../components/button/Button";
+import Display from "../components/display/Display";
 
 export default class Calculator extends Component {
     render(){                                       // O render() é uma fincionacidade do react para podermos disponibiliazar(apresentar) funcinalidades html
         return (
             <div className="calculator">
+                <Display value={888}/>
                 <Button label="AC"/>
                 <Button label="/"/>
                 <Button label="7"/>
