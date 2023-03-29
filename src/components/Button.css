@@ -1,0 +1,13 @@
+:root {  /* fazeando :root => é assim que se cria uma variavel em css*/
+    --bg-button: #f0f0f0; /* dentro do :root e eu posso criar outras variveis*/
+    --border-button: solid 1px #888;
+}
+
+.button {
+    font-size: 1.4em;
+    background-color: var(--bg-button);         /* preciso do var() para acessar o a variavel */
+    border: none;
+    border-right: var(--border-button);
+    border-bottom: var(--border-button);
+    outline: none;
+}
