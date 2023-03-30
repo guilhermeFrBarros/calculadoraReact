@@ -11,3 +11,25 @@
     border-bottom: var(--border-button);
     outline: none;
 }
+
+.button:active {                                /* o :active é ativado quando o button é precionado*/
+    background-color: #ccc;
+}
+
+.button.double {                                /* passo essa class para o button ocupar duas posiçoes de column */
+    grid-column: 2 span;
+}
+
+.button.triple {                                /* class para ocupar tres posições */
+    grid-column: 3 span; 
+}
+
+.button.operation {
+    background-color: #fa8231;
+    color: #FFF;
+}
+
+
+.button.operation:active {
+    background-color: #fa8231cc;            /* o cc no final da uma ceta transparencia */
+}
