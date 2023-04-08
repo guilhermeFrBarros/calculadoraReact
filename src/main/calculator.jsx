@@ -23,7 +23,8 @@ const initialState = {
     }
    
     setOperation(operation) {
-       console.log(operation);
+        console.log(operation);
+        
     }
    
     addDigit(n) {   // adiciona numero digitado ao display
@@ -40,10 +41,10 @@ const initialState = {
     
         
         if ( n !== '.' ) {
-            const i = this.state.corruntValue;
-            const newValaue = parseFloat(displayValue);
+            const i = this.state.current;
+            const newValue = parseFloat(displayValue);
             const values = [...this.state.values];
-            values[i] = newValaue;
+            values[i] = newValue;
             this.setState({values});
             console.log(values);
         }
