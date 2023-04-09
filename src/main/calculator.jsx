@@ -29,22 +29,34 @@ const Calculator = () => {
             const currentOperation = state.operation;
 
             const values = [...state.values];
-            switch (currentOperation) {
-                case '+':
-                    values[0] = values[0] + values[1];
-                    break;
-                case '-':
-                    values[0] = values[0] - values[1];
-                    break;
-                case '*':
-                    values[0] = values[0] * values[1];
-                    break;
-                case '/':
-                    values[0] = values[0] / values[1];
-                    break;
-                default:
-                    break;
+
+            try {
+                switch (currentOperation) {
+                    case '+':
+                        values[0] = values[0] + values[1];
+                        break;
+                    case '-':
+                        values[0] = values[0] - values[1];
+                        break;
+                    case '*':
+                        values[0] = values[0] * values[1];
+                        break;
+                    case '/':
+                        values[0] = values[0] / values[1];
+                        break;
+                    default:
+                        break;
+                }
+
+                if ( isNaN(values[0]) || !isFinite(values[0]) ) {
+                    clearMemory();
+                    return
+                }
             }
+            catch (e) {
+                values[0] = state.values[0];
+            }
+            
             values[1] = 0;
 
             setState( prevState => ({...prevState,
