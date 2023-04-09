@@ -8,68 +8,102 @@ const initialState = {
     displayValue: '0',
     clearDisplay: false,
     operation: null,
-    values: [0,0],
-    current: 0                  
+    values: [0, 0],
+    current: 0
 }
 
 const Calculator = () => {
+
     const [state, setState] = useState(initialState);
 
     function clearMemory() {
         setState(initialState);
     }
-   
+
     function setOperation(operation) {
-        console.log(operation);
-        
+        if ( state.current === 0 ) {
+            setState( prevState => ({...prevState, operation, current: 1, clearDisplay: true}));
+        }
+        else {
+            const equals = operation === '=';
+            const currentOperation = state.operation;
+
+            const values = [...state.values];
+            switch (currentOperation) {
+                case '+':
+                    values[0] = values[0] + values[1];
+                    break;
+                case '-':
+                    values[0] = values[0] - values[1];
+                    break;
+                case '*':
+                    values[0] = values[0] * values[1];
+                    break;
+                case '/':
+                    values[0] = values[0] / values[1];
+                    break;
+                default:
+                    break;
+            }
+            values[1] = 0;
+
+            setState( prevState => ({...prevState,
+                        displayValue: values[0],
+                        operation: equals ? null : operation,
+                        current: equals ? 0 : 1,
+                        clearDisplay: !equals,
+                        values
+                }))
+        }
     }
-   
+
     function addDigit(n) {   // adiciona numero digitado ao display
-        if ( n === '.' && state.displayValue.includes('.') ) {
+        if (n === '.' && state.displayValue.includes('.')) {
             return;
         }
-        
+
         const clearDisplay = state.displayValue === '0'
             || state.clearDisplay;                                                     // ou se clearDisplay for true
         const corruntValue = clearDisplay ? '' : state.displayValue;                   // se o display for limpo (clearDisplay) add '' senão add displayValue 
         const displayValue = corruntValue + n;
         //console.log(displayValue)
         setState({ ...state, displayValue, clearDisplay: false });    // Posso fazer assim também {displayValeu: newDisplayValue}
-        ////setState(prevState  => ({ ...prevState, displayValue, clearDisplay: false })); 
+        ////setState(prevState  => ({ ...prevState, displayValue, clearDisplay: false }));
+        // RECOMENDO FORTEMENTE COLOCAR DO GEITO A CIMA 
 
-        if ( n !== '.' ) {
+        if (n !== '.') {
             const i = state.current;
             const newValue = parseFloat(displayValue);
             const values = [...state.values];
             values[i] = newValue;
-            setState(prevState  => ({ ...prevState, values }));
+            setState(prevState => ({ ...prevState, values }));
             console.log(values);
         }
     }
 
-    const addDigitWrapper = n => addDigit(n);
-    const setOperationWrapper = op => setOperation(op);
+    const addDigitArrow = n => addDigit(n);
+    const setOperationArrow = op => setOperation(op);
 
     return (
         <div className="calculator">
-            <Display value={state.displayValue}/>
+            <Display value={state.displayValue} />
             <Button label="AC" click={() => clearMemory()} triple />
-            <Button label="/" click={(e) => setOperationWrapper(e)} operation />                                 {/* click={setOperation} */}
-            <Button label="7" click={(e) => addDigitWrapper(e)}/>
-            <Button label="8" click={(e) => addDigitWrapper(e)}/>
-            <Button label="9" click={(e) => addDigitWrapper(e)}/>
-            <Button label="*" click={(e) => setOperationWrapper(e)} operation/>
-            <Button label="4" click={(e) => addDigitWrapper(e)}/>
-            <Button label="5" click={(e) => addDigitWrapper(e)}/>
-            <Button label="6" click={(e) => addDigitWrapper(e)}/>
-            <Button label="-" click={(e) => setOperationWrapper(e)} operation/>
-            <Button label="1" click={(e) => addDigitWrapper(e)}/>
-            <Button label="2" click={(e) => addDigitWrapper(e)}/>
-            <Button label="3" click={(e) => addDigitWrapper(e)}/>
-            <Button label="+" click={(e) => setOperationWrapper(e)} operation/>
-            <Button label="0" click={(e) => addDigitWrapper(e)} double/>
-            <Button label="." click={(e) => addDigitWrapper(e)}/>
-            <Button label="=" click={(e) => setOperationWrapper(e)} operation/>  
+            <Button label="/" click={(e) => setOperationArrow(e)} operation />                                 {/* click={setOperation} */}
+            <Button label="7" click={(e) => addDigitArrow(e)} />
+            <Button label="8" click={(e) => addDigitArrow(e)} />
+            <Button label="9" click={(e) => addDigitArrow(e)} />
+            <Button label="*" click={(e) => setOperationArrow(e)} operation />
+            <Button label="4" click={(e) => addDigitArrow(e)} />
+            <Button label="5" click={(e) => addDigitArrow(e)} />
+            <Button label="6" click={(e) => addDigitArrow(e)} />
+            <Button label="-" click={(e) => setOperationArrow(e)} operation />
+            <Button label="1" click={(e) => addDigitArrow(e)} />
+            <Button label="2" click={(e) => addDigitArrow(e)} />
+            <Button label="3" click={(e) => addDigitArrow(e)} />
+            <Button label="+" click={(e) => setOperationArrow(e)} operation />
+            <Button label="0" click={(e) => addDigitArrow(e)} double />
+            <Button label="." click={(e) => addDigitArrow(e)} />
+            <Button label="=" click={(e) => setOperationArrow(e)} operation />
         </div>
     )
 }
